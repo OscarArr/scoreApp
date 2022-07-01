@@ -27,7 +27,7 @@ const App = () => {
   
   useEffect(() => {
       axios.request(options).then((response) => {
-        console.log(response.data);
+        console.log(response.data.DATA[0].ROWS);
         setTeams(response.data.DATA[0].ROWS)
       }).catch((error) => {
         console.error(error);
