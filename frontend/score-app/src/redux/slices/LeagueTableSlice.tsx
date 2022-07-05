@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
+import {getLeagueTable} from '../../api/getLeagueTable'
 
 
 interface ITable {
@@ -33,13 +34,19 @@ const options = {
   }
 };
 
+export const getTable = createAsyncThunk('skahaettname', 
+    async () => {
+      const response = await getLeagueTable()
+      return response
+    }
+)
 
-export const getLeagueTable = createAsyncThunk(
+export const getLeagueTable2 = createAsyncThunk(
   'todos/getTodoAsync',
   async () => {
     // const resp = await fetch ('')
     axios.request(options).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       const result: ITable[] = response.data.DATA[0].ROWS 
       return(result)
     }).catch((error) => {
@@ -69,7 +76,7 @@ export const LeagueTableSlice: any = createSlice({
 					dynamicColumnsDatalive: action.payload.DYNAMIC_COLUMNS_DATA_LIVE,
 					teamImgPath: action.payload.TEAM_IMAGE_PATH 
         }
-        state.push(table)
+        // state.push(table)
       }
     }
 })
